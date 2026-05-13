@@ -19,9 +19,9 @@
             --color-gold: #d4af37;
             --color-gold-light: #f3e5ab;
             --color-text-light: #fdfbf7;
-            --font-serif: 'Cinzel', serif; /* Font Luxury Tajam */
-            --font-sans: 'Montserrat', sans-serif; /* Font Pembantu */
-            --font-script: 'Great Vibes', cursive; /* Font Kaligrafi Pernikahan */
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-script: 'Great Vibes', cursive;
         }
 
         * {
@@ -37,6 +37,43 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
+
+        /* --- BINGKAI ESTETIK BARU --- */
+        .luxury-frame {
+            position: fixed;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            pointer-events: none; /* Agar tidak menghalangi klik tombol */
+            z-index: 998; /* Berada di atas background, di bawah tombol musik */
+            border-radius: 10px;
+        }
+
+        .luxury-frame::before,
+        .luxury-frame::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--color-gold);
+        }
+
+        .luxury-frame::before {
+            top: -5px;
+            left: -5px;
+            border-bottom: none;
+            border-right: none;
+        }
+
+        .luxury-frame::after {
+            bottom: -5px;
+            right: -5px;
+            border-top: none;
+            border-left: none;
+        }
+        /* --- AKHIR BINGKAI ESTETIK --- */
 
         .fluid-bg {
             position: fixed;
@@ -91,7 +128,7 @@
 
         .title-script {
             font-family: var(--font-script);
-            font-size: 5.5rem; /* Font kaligrafi butuh ukuran lebih besar */
+            font-size: 5.5rem;
             background: linear-gradient(to right, var(--color-gold-light), var(--color-gold), var(--color-gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -100,7 +137,7 @@
             animation: shimmer 4s infinite linear;
             background-size: 200% auto;
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-            padding: 0 15px; /* Mencegah font melengkung terpotong di HP */
+            padding: 0 15px;
         }
 
         .title-serif {
@@ -334,6 +371,9 @@
     </style>
 </head>
 <body>
+    
+    <!-- Elemen Bingkai Estetik -->
+    <div class="luxury-frame"></div>
 
     <div class="fluid-bg"></div>
     <div class="photo-bg"></div>
@@ -489,7 +529,6 @@
         }
 
         function openInvitation() {
-            // Memutar musik langsung
             let playPromise = music.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
@@ -516,7 +555,6 @@
             }, 1000); 
         }
 
-        // Hitung Mundur Resepsi (Jam 09.00 WITA)
         const weddingDate = new Date("May 24, 2026 09:00:00").getTime();
         
         const countdownTimer = setInterval(() => {
