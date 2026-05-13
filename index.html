@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Wedding of Didik & Istiana</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dark: #AA7C11;
+            --bg-dark: #070605;
+            --text-light: #FDFCF0;
+            --glass-bg: rgba(20, 18, 16, 0.4);
+            --glass-border: rgba(212, 175, 55, 0.15);
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-script: 'Great Vibes', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+        }
+
+        /* Background Foto Mewah */
+        .bg-photo-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+        }
+        
+        .bg-photo {
+            position: absolute;
+            inset: -10%; /* Lebih besar untuk ruang zoom */
+            width: 120%;
+            height: 120%;
+            /* Foto chandelier/dekorasi mewah tanpa manusia */
+            background-image: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2000&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.45; /* Redup agar elegan */
+            filter: grayscale(30%) contrast(110%);
+            animation: slowZoom 35s linear infinite alternate;
+        }
+        
+        .bg-photo-overlay {
+            position: absolute;
+            inset: 0;
+            /* Gradien gelap agar teks tetap menonjol */
+            background: linear-gradient(to bottom, rgba(7,6,5,0.85) 0%, rgba(7,6,5,0.6) 40%, rgba(7,6,5,0.9) 100%);
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-1%, 2%); }
+        }
+
+        /* Cairan / Sutra Animasi Background (Fluid) */
+        .fluid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+            mix-blend-mode: screen; /* Menyatu dengan foto background */
+        }
+        
+        .fluid-shape {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: morphFluid 20s infinite alternate ease-in-out;
+        }
+        
+        .shape-1 {
+            background: radial-gradient(circle, var(--gold-dark) 0%, transparent 70%);
+            width: 80vw; height: 80vw;
+            top: -20%; left: -20%;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            background: radial-gradient(circle, #5c4613 0%, transparent 70%);
+            width: 90vw; height: 90vw;
+            bottom: -20%; right: -20%;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+
+        @keyframes morphFluid {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            33% { transform: translate(5vw, 10vh) scale(1.1) rotate(45deg); border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+            66% { transform: translate(-10vw, 5vh) scale(0.9) rotate(90deg); border-radius: 50% 50% 60% 40% / 60% 40% 50% 40%; }
+            100% { transform: translate(0, -5vh) scale(1.2) rotate(135deg); border-radius: 30% 70% 50% 50% / 50% 50% 70% 30%; }
+        }
+
+        /* Tekstur Noise Profesional */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Core Layout */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 100px;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        /* Typography */
+        .title-serif {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--gold-light), var(--gold-primary), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        .subtitle-sans {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            opacity: 0.8;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Garis memudar (Fading Lines - Tidak Kaku) */
+        .fade-line {
+            height: 1px;
+            width: 80%;
+            margin: 2rem auto;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            opacity: 0.5;
+        }
+        .fade-line.vertical {
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(180deg, transparent, var(--gold-primary), transparent);
+        }
+
+        /* Glassmorphism Organik (Tanpa sudut tajam) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px; /* Sudut sangat bulat */
+            padding: 3rem 2rem;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.05);
+            transition: transform 0.4s ease;
+        }
+        
+        /* Button Premium */
+        .btn-luxury {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.3));
+            color: var(--gold-light);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            border-radius: 50px; /* Bulat sempurna */
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        
+        .btn-luxury:active {
+            transform: scale(0.95);
+            background: rgba(212, 175, 55, 0.4);
+        }
+
+        /* Animasi Kunang-kunang Organik (Fireflies) */
+        .firefly {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background-color: var(--gold-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            box-shadow: 0 0 10px 2px var(--gold-primary);
+            opacity: 0;
+            animation: floatFirefly 15s infinite linear;
+        }
+
+        @keyframes floatFirefly {
+            0% { transform: translateY(110vh) translateX(0) scale(0); opacity: 0; }
+            10% { opacity: 0.8; scale: 1; }
+            50% { transform: translateY(50vh) translateX(20px) scale(1.2); }
+            90% { opacity: 0.8; scale: 1; }
+            100% { transform: translateY(-10vh) translateX(-20px) scale(0); opacity: 0; }
+        }
+
+        /* Opening Screen Cinematic */
+        .opening-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+        }
+
+        .opening-content {
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInOut 3s infinite alternate;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Marquee Ribbon */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            padding: 1rem 0;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.05), transparent);
+            position: relative;
+        }
+        
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        
+        .marquee-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: rgba(243, 229, 171, 0.3);
+            margin: 0 2rem;
+            font-style: italic;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Countdown */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.02);
+            padding: 1.5rem 0.5rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-number {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Music */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--gold-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+        
+        .spin {
+            animation: spin 4s linear infinite;
+        }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50px;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.8rem 2rem;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-item {
+            color: rgba(255,255,255,0.5);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: var(--gold-light);
+            text-shadow: 0 0 10px var(--gold-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Foto Premium & Efek Fluid -->
+    <div class="bg-photo-wrapper">
+        <div class="bg-photo"></div>
+        <div class="bg-photo-overlay"></div>
+    </div>
+    <div class="noise-overlay"></div>
+    <div class="fluid-bg">
+        <div class="fluid-shape shape-1"></div>
+        <div class="fluid-shape shape-2"></div>
+    </div>
+
+    <!-- Opening Screen -->
+    <div class="opening-screen" id="openingScreen">
+        <div class="opening-content">
+            <p class="subtitle-sans" style="margin-bottom: 2rem;">The Wedding Of</p>
+            <h1 class="title-serif" style="font-size: 3rem; margin-bottom: 1rem;">Didik & Istiana</h1>
+            
+            <div class="fade-line"></div>
+            
+            <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7);">Kepada Yth Bapak/Ibu/Saudara/i</p>
+            <h2 id="guestName" style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-light); margin-bottom: 3rem; font-style: italic;">Tamu Undangan</h2>
+            
+            <button class="btn-luxury" onclick="openInvitation()">
+                <i class="fas fa-envelope-open-text" style="margin-right: 8px;"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container" id="mainContent" style="display: none; opacity: 0; transition: opacity 2s ease;">
+        
+        <!-- Hero Section -->
+        <section id="home">
+            <p class="subtitle-sans reveal" style="margin-bottom: 1rem; text-align: center;">You Are Invited</p>
+            <h1 class="title-serif reveal" style="font-size: 4rem; text-align: center; line-height: 1;">Didik<br><span style="font-family: var(--font-script); font-size: 3rem; color: var(--gold-primary);">&</span><br>Istiana</h1>
+            
+            <div class="fade-line vertical reveal" style="margin: 3rem auto;"></div>
+            <p class="subtitle-sans reveal" style="text-align: center;">24 Mei 2026</p>
+        </section>
+
+        <!-- Marquee Ribbon Decorative -->
+        <div class="marquee-wrapper reveal">
+            <div class="marquee-content">
+                <span class="marquee-text">Love & Eternity</span>
+                <span class="marquee-text">•</span>
+                <span class="marquee-text">The Beginning of Forever</span>
+                <span class="marquee-text">•</span>
+                <span class="marquee-text">Love & Eternity</span>
+                <span class="marquee-text">•</span>
+                <span class="marquee-text">The Beginning of Forever</span>
+            </div>
+        </div>
+
+        <!-- Couple Section -->
+        <section id="couple">
+            <div class="glass-card reveal">
+                <i class="fas fa-rings" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 2rem;"></i>
+                <p style="font-style: italic; color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-family: var(--font-serif);">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."</p>
+                
+                <h2 class="title-serif" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Didik Setiawan</h2>
+                <p class="subtitle-sans" style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">Putra dari Bapak Muhammad Sai & Ibu Nasmiati</p>
+                
+                <div class="fade-line"></div>
+                
+                <h2 class="title-serif" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Nur Istiana</h2>
+                <p class="subtitle-sans" style="font-size: 0.7rem; color: rgba(255,255,255,0.5);">Putri dari Bapak Kusran (Alm) & Ibu Sapariah</p>
+            </div>
+        </section>
+
+        <!-- Event & Countdown -->
+        <section id="event">
+            <div class="glass-card reveal">
+                <p class="subtitle-sans" style="margin-bottom: 1rem;">Save The Date</p>
+                <h2 class="title-serif" style="font-size: 2.5rem; margin-bottom: 1rem;">Resepsi</h2>
+                
+                <p style="font-size: 1.1rem; color: var(--gold-light); margin-bottom: 0.5rem;">Minggu, 24 Mei 2026</p>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Pukul 10.00 WITA - Selesai</p>
+                
+                <div class="fade-line" style="margin: 2rem auto;"></div>
+                
+                <div class="countdown-grid" id="countdown">
+                    <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Hari</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Jam</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Menit</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Detik</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location">
+            <div class="glass-card reveal">
+                <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 1.5rem;"></i>
+                <p class="subtitle-sans" style="margin-bottom: 1rem;">Lokasi Acara</p>
+                
+                <p style="font-size: 1rem; color: var(--gold-light); margin-bottom: 1rem; line-height: 1.6;">
+                    Jalan Rengas SP1<br>
+                    Desa Bumi Etam<br>
+                    Kecamatan Kaubun
+                </p>
+                
+                <a href="https://maps.app.goo.gl/rRi4P3Q9A1FeidN38" target="_blank" class="btn-luxury" style="margin-top: 1rem;">
+                    <i class="fas fa-location-arrow" style="margin-right: 8px;"></i> Buka Google Maps
+                </a>
+            </div>
+        </section>
+
+        <!-- Closing Section -->
+        <section id="closing">
+            <div style="text-align: center;" class="reveal">
+                <p class="subtitle-sans" style="margin-bottom: 2rem;">Terima Kasih</p>
+                <p style="font-family: var(--font-serif); font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+                </p>
+                <h1 class="title-serif" style="font-size: 2.5rem;">Didik & Istiana</h1>
+            </div>
+        </section>
+
+    </div> <!-- End Container -->
+
+    <!-- Floating Audio Component -->
+    <!-- Menggunakan instrumen romantis klasik (Chopin - Nocturne Op. 9 No. 2) -->
+    <audio id="bgMusic" loop>
+        <source src="https://ia800404.us.archive.org/2/items/chopin_nocturnes/02_Op_9_No_2.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
+        <i class="fas fa-compact-disc spin"></i>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav" id="bottomNav" style="display: none;">
+        <a href="#home" class="nav-item active"><i class="fas fa-home"></i></a>
+        <a href="#couple" class="nav-item"><i class="fas fa-heart"></i></a>
+        <a href="#event" class="nav-item"><i class="fas fa-calendar-alt"></i></a>
+        <a href="#location" class="nav-item"><i class="fas fa-map-marked-alt"></i></a>
+    </div>
+
+    <script>
+        // Get Guest Name from URL (?to=Nama)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        if(guestName) {
+            document.getElementById('guestName').innerText = guestName.replace(/\+/g, ' ');
+        }
+
+        // Generate Organic Fireflies Background
+        function createFireflies() {
+            const count = 25; // Jumlah partikel kunang-kunang
+            for(let i=0; i<count; i++) {
+                let fly = document.createElement('div');
+                fly.className = 'firefly';
+                fly.style.left = Math.random() * 100 + 'vw';
+                fly.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                fly.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(fly);
+            }
+        }
+
+        // Open Invitation Logic
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.querySelector('#musicToggle i');
+        let isMusicPlaying = false;
+
+        function openInvitation() {
+            // Hide Cover
+            const cover = document.getElementById('openingScreen');
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                
+                // Show Main Content
+                const mainContent = document.getElementById('mainContent');
+                const bottomNav = document.getElementById('bottomNav');
+                mainContent.style.display = 'block';
+                bottomNav.style.display = 'flex';
+                
+                // Trigger reflow for transition
+                void mainContent.offsetWidth; 
+                mainContent.style.opacity = '1';
+
+                // Play Music
+                playMusic();
+                
+                // Init Fireflies & Scroll Observer
+                createFireflies();
+                initScrollObserver();
+                
+            }, 1500);
+        }
+
+        function playMusic() {
+            music.play().then(() => {
+                isMusicPlaying = true;
+                musicIcon.classList.add('spin');
+            }).catch(e => console.log("Audio autoplay prevented"));
+        }
+
+        function toggleMusic() {
+            if(isMusicPlaying) {
+                music.pause();
+                musicIcon.classList.remove('spin');
+                musicIcon.classList.remove('fa-compact-disc');
+                musicIcon.classList.add('fa-volume-mute');
+            } else {
+                music.play();
+                musicIcon.classList.add('spin');
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-compact-disc');
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // Countdown Timer Logic
+        const weddingDate = new Date("May 24, 2026 10:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<h3 style='color:var(--gold-primary); font-family:var(--font-serif); text-align:center; width:100%;'>Acara Sedang Berlangsung / Telah Selesai</h3>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0'+days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0'+hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0'+minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0'+seconds : seconds;
+        }, 1000);
+
+        // Scroll Reveal Animation Logic
+        function initScrollObserver() {
+            const reveals = document.querySelectorAll('.reveal');
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Reveal elements
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+
+            // Update Active Nav State based on scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href').includes(current)) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
