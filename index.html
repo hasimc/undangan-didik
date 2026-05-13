@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Wedding of Didik & Istiana</title>
     
-    <!-- Fonts -->
+    <!-- Fonts Premium: Great Vibes (Kaligrafi) & Cinzel (Luxury Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome -->
+    <!-- FontAwesome Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -19,8 +19,9 @@
             --color-gold: #d4af37;
             --color-gold-light: #f3e5ab;
             --color-text-light: #fdfbf7;
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Cinzel', serif; /* Font Luxury Tajam */
+            --font-sans: 'Montserrat', sans-serif; /* Font Pembantu */
+            --font-script: 'Great Vibes', cursive; /* Font Kaligrafi Pernikahan */
         }
 
         * {
@@ -73,7 +74,7 @@
             background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            opacity: 0.15; /* Sangat transparan agar teks tetap terbaca jelas */
+            opacity: 0.15;
             filter: sepia(0.8) contrast(1.2) brightness(0.6);
             mix-blend-mode: screen;
             animation: cinematicZoom 30s ease-in-out infinite alternate;
@@ -84,32 +85,29 @@
             100% { transform: scale(1.15); }
         }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-
         h1, h2, h3 {
-            font-family: var(--font-serif);
             font-weight: 400;
         }
 
-        .title-serif {
-            font-size: 3.5rem;
+        .title-script {
+            font-family: var(--font-script);
+            font-size: 5.5rem; /* Font kaligrafi butuh ukuran lebih besar */
             background: linear-gradient(to right, var(--color-gold-light), var(--color-gold), var(--color-gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 0.5rem;
             animation: shimmer 4s infinite linear;
             background-size: 200% auto;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 0 15px; /* Mencegah font melengkung terpotong di HP */
+        }
+
+        .title-serif {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            letter-spacing: 2px;
         }
 
         @keyframes shimmer {
@@ -122,27 +120,6 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.7);
             margin-bottom: 1rem;
-        }
-
-        .firefly {
-            position: fixed;
-            width: 3px;
-            height: 3px;
-            background-color: var(--color-gold-light);
-            border-radius: 50%;
-            box-shadow: 0 0 10px 2px var(--color-gold);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0;
-            animation: floatOrganic linear infinite;
-        }
-
-        @keyframes floatOrganic {
-            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
-            20% { opacity: 0.8; }
-            50% { transform: translateY(50vh) translateX(20px) scale(1); }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) translateX(-20px) scale(0); opacity: 0; }
         }
 
         #openingScreen {
@@ -197,11 +174,7 @@
         }
 
         .btn-open:hover::before { left: 100%; }
-        .btn-open:hover {
-            background: rgba(212, 175, 55, 0.1);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
+        
         #mainContent {
             display: none;
             opacity: 0;
@@ -225,7 +198,7 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 30px; /* Lebh membulat, organik */
+            border-radius: 30px;
             padding: 3rem 2rem;
             text-align: center;
             width: 100%;
@@ -235,24 +208,13 @@
             overflow: hidden;
         }
 
-        /* Fading light sweep on glass box */
-        .glass-box::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .glass-box:hover::after { opacity: 1; }
-
         .couple-name {
-            font-size: 2.2rem;
+            font-family: var(--font-script);
+            font-size: 3.5rem;
             color: var(--color-gold);
-            margin: 1rem 0;
-            font-family: var(--font-serif);
+            margin: 0.5rem 0;
+            line-height: 1.2;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         .parents-name {
@@ -263,11 +225,10 @@
         }
 
         .and-divider {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            color: rgba(212, 175, 55, 0.5);
-            margin: 1rem 0;
-            font-style: italic;
+            font-family: var(--font-script);
+            font-size: 3rem;
+            color: rgba(212, 175, 55, 0.6);
+            margin: -0.5rem 0;
         }
 
         .countdown-grid {
@@ -317,11 +278,6 @@
             transition: all 0.3s;
         }
 
-        .btn-map:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.5);
-        }
-
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -355,57 +311,51 @@
         .spin { animation: spinRecord 4s linear infinite; }
         @keyframes spinRecord { 100% { transform: rotate(360deg); } }
 
-        .bottom-nav {
+        .firefly {
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 40px;
-            padding: 0.8rem 2rem;
-            display: none; /* hidden initially */
-            gap: 2rem;
-            z-index: 998;
+            width: 3px;
+            height: 3px;
+            background-color: var(--color-gold-light);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--color-gold);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            animation: floatOrganic linear infinite;
         }
 
-        .nav-item {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s;
+        @keyframes floatOrganic {
+            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(50vh) translateX(20px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(-20px) scale(0); opacity: 0; }
         }
-
-        .nav-item:hover, .nav-item.active { color: var(--color-gold); }
-
     </style>
 </head>
 <body>
 
     <div class="fluid-bg"></div>
     <div class="photo-bg"></div>
-    <div class="noise-overlay"></div>
 
     <div id="openingScreen">
         <div class="opening-content">
             <p class="subtitle-sans">Undangan Pernikahan</p>
-            <h1 class="title-serif" style="font-size: 4rem;">Didik & Istiana</h1>
+            <h1 class="title-script">Didik & Istiana</h1>
             <p style="margin-top: 2rem; font-size: 0.9rem; color: rgba(255,255,255,0.6);">Kepada Yth.</p>
-            <h2 id="guestName" style="margin-top: 0.5rem; font-size: 1.8rem; color: var(--color-gold);">Bapak/Ibu/Saudara/i</h2>
+            <h2 id="guestName" style="margin-top: 0.5rem; font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-gold);">Bapak/Ibu/Saudara/i</h2>
             
             <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
         </div>
     </div>
 
     <div id="mainContent">
-
         <!-- Hero Section -->
         <section id="home">
             <div style="text-align: center; position: relative;" class="reveal">
                 <p class="subtitle-sans">Kami Mengundang Anda</p>
-                <h1 class="title-serif" style="font-size: 4.5rem; margin-top: 1rem;">Didik<br><span style="font-size: 2.5rem; color:rgba(212,175,55,0.6);">&</span><br>Istiana</h1>
-                <p style="margin-top: 2rem; font-size: 1rem; letter-spacing: 2px; color: rgba(255,255,255,0.8);">24 . 05 . 2026</p>
+                <h1 class="title-script" style="font-size: 6.5rem; margin-top: 1rem;">Didik<br><span style="font-size: 4rem; color:rgba(212,175,55,0.6);">&</span><br>Istiana</h1>
+                <p style="margin-top: 1rem; font-family: var(--font-serif); font-size: 1.2rem; letter-spacing: 3px; color: rgba(255,255,255,0.8);">24 . 05 . 2026</p>
             </div>
         </section>
 
@@ -432,7 +382,7 @@
         <section id="event">
             <div class="glass-box reveal">
                 <p class="subtitle-sans">Waktu Menuju Bahagia</p>
-                <h2 class="title-serif" style="font-size: 2.5rem; margin: 1rem 0;">Resepsi</h2>
+                <h2 class="title-serif" style="margin: 1rem 0;">RESEPSI</h2>
                 
                 <div style="margin: 1.5rem 0; border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 1.5rem 0;">
                     <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">Minggu, 24 Mei 2026</p>
@@ -468,10 +418,10 @@
         <section id="prayer">
             <div class="glass-box reveal" style="max-width: 500px; padding: 4rem 2rem;">
                 <i class="fas fa-quote-right" style="font-size: 2rem; color: rgba(212,175,55,0.3); margin-bottom: 1.5rem;"></i>
-                <p style="font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.8; color: rgba(255,255,255,0.8); font-style: italic;">
-                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                <p style="font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.8); font-style: italic;">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."
                 </p>
-                <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--color-gold); letter-spacing: 1px;">(QS. Ar-Rum: 21)</p>
+                <p style="margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.8rem; color: var(--color-gold); letter-spacing: 1px;">(QS. Ar-Rum: 21)</p>
             </div>
         </section>
 
@@ -479,19 +429,15 @@
         <section id="closing">
             <div style="text-align: center;" class="reveal">
                 <p class="subtitle-sans" style="margin-bottom: 2rem;">Terima Kasih</p>
-                <p style="font-family: var(--font-serif); font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem;">
+                <p style="font-family: var(--font-sans); font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem; padding: 0 20px;">
                     Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
                 </p>
-                <h1 class="title-serif" style="font-size: 2.5rem;">Didik & Istiana</h1>
+                <h1 class="title-script" style="font-size: 4.5rem;">Didik & Istiana</h1>
             </div>
         </section>
 
-    </div> <!-- End Main Content -->
+    </div>
 
-    <!-- Debug Box (Hanya untuk mencari tahu error, akan hilang otomatis jika sukses) -->
-    <div id="debugBox" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:rgba(255,0,0,0.9); color:white; padding:15px; border-radius:10px; z-index:999999; font-size:12px; width:90%; text-align:center; font-family:sans-serif; border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>
-
-    <!-- Menggunakan lagu milik sendiri -->
     <audio id="bgMusic" loop preload="auto">
         <source src="wedding.mp3" type="audio/mpeg">
     </audio>
@@ -500,15 +446,7 @@
         <i class="fas fa-volume-mute"></i>
     </div>
 
-    <div class="bottom-nav" id="bottomNav">
-        <a href="#home" class="nav-item"><i class="fas fa-home"></i></a>
-        <a href="#couple" class="nav-item"><i class="fas fa-heart"></i></a>
-        <a href="#event" class="nav-item"><i class="fas fa-calendar-alt"></i></a>
-        <a href="#location" class="nav-item"><i class="fas fa-map-marker-alt"></i></a>
-    </div>
-
     <script>
-        // Get Guest Name from URL (?to=Nama)
         const urlParams = new URLSearchParams(window.location.search);
         const guestName = urlParams.get('to');
         if(guestName) {
@@ -518,9 +456,8 @@
             }
         }
 
-        // Generate Organic Fireflies Background
         function createFireflies() {
-            const count = 25; // Jumlah partikel kunang-kunang
+            const count = 25;
             for(let i=0; i<count; i++) {
                 let fly = document.createElement('div');
                 fly.className = 'firefly';
@@ -531,79 +468,55 @@
             }
         }
 
-        // Audio Elements
         const music = document.getElementById('bgMusic');
         const musicIcon = document.querySelector('#musicToggle i');
-        let isMusicPlaying = false;
-
-        // Open Invitation Logic
-        function openInvitation() {
-            // PENTING: Panggil playMusic() langsung saat klik, jangan di dalam setTimeout!
-            playMusic();
-
-            const cover = document.getElementById('openingScreen');
-            const mainContent = document.getElementById('mainContent');
-            const bottomNav = document.getElementById('bottomNav');
-
-            // Fade out cover
-            cover.style.opacity = '0';
-            
-            setTimeout(() => {
-                cover.style.display = 'none';
-                
-                // Show Main Content
-                mainContent.style.display = 'block';
-                bottomNav.style.display = 'flex';
-                
-                // Trigger reflow for CSS transition
-                void mainContent.offsetWidth; 
-                mainContent.style.opacity = '1';
-                
-                // Init Features
-                createFireflies();
-                initScrollObserver();
-                
-            }, 1500);
-        }
-
-        function playMusic() {
-            music.volume = 1.0; 
-            
-            let playPromise = music.play();
-            
-            // Tangkap dan toleransi error/interupsi pemutaran
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    isMusicPlaying = true;
-                    musicIcon.className = 'fas fa-compact-disc spin';
-                    
-                    // Sembunyikan kotak merah jika sukses
-                    document.getElementById('debugBox').style.display = 'none';
-                }).catch(error => {
-                    console.log("Audio play error:", error);
-                    isMusicPlaying = false;
-                    musicIcon.className = 'fas fa-volume-mute';
-                    
-                    // TAMPILKAN ERROR DI LAYAR KOTAK MERAH
-                    const debugBox = document.getElementById('debugBox');
-                    debugBox.style.display = 'block';
-                    debugBox.innerHTML = "<b>Sistem HP/Browser Menolak Audio:</b><br><br><u>" + error.name + "</u><br>" + error.message + "<br><br><i>Tolong screenshot kotak ini!</i>";
-                });
-            }
-        }
 
         function toggleMusic() {
-            // Gunakan status asli pemutar (music.paused) untuk mencegah konflik
-            if(music.paused) {
-                playMusic();
+            if (music.paused) {
+                let playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        musicIcon.className = 'fas fa-compact-disc spin';
+                    }).catch(error => {
+                        console.log("Audio play interrupted/blocked:", error);
+                        musicIcon.className = 'fas fa-volume-mute';
+                    });
+                }
             } else {
                 music.pause();
-                isMusicPlaying = false;
                 musicIcon.className = 'fas fa-volume-mute';
             }
         }
 
-        // Countdown Timer Logic
+        function openInvitation() {
+            // Memutar musik langsung
+            let playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.className = 'fas fa-compact-disc spin';
+                }).catch(error => {
+                    console.log("Auto-play pada awal dicegah:", error);
+                });
+            }
+
+            const cover = document.getElementById('openingScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            cover.style.opacity = '0';
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                void mainContent.offsetWidth; 
+                mainContent.style.opacity = '1';
+                
+                createFireflies();
+                initScrollObserver();
+            }, 1000); 
+        }
+
+        // Hitung Mundur Resepsi (Jam 09.00 WITA)
         const weddingDate = new Date("May 24, 2026 09:00:00").getTime();
         
         const countdownTimer = setInterval(() => {
@@ -630,7 +543,6 @@
             document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
 
-        // Scroll Reveal Observer
         function initScrollObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
