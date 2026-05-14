@@ -2,172 +2,612 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Wedding of Didik & Istiana</title>
-    <!-- Google Fonts untuk Tipografi Mewah -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Fonts Premium: Great Vibes (Kaligrafi) & Cinzel (Luxury Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --gold: #d4af37;
-            --dark: #0a0a0a;
-            --light: #f8f8f8;
+            --color-bg-dark: #0a0a0a;
+            --color-gold: #d4af37;
+            --color-gold-light: #f3e5ab;
+            --color-text-light: #fdfbf7;
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-script: 'Great Vibes', cursive;
         }
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--dark);
-            
-            /* --- INI KODE UNTUK MEMANGGIL FOTO LATAR --- */
-            background-image: url('bg.jpg'); 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BINGKAI ESTETIK BARU --- */
+        .luxury-frame {
+            position: fixed;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            pointer-events: none; /* Agar tidak menghalangi klik tombol */
+            z-index: 998; /* Berada di atas background, di bawah tombol musik */
+            border-radius: 10px;
+        }
+
+        .luxury-frame::before,
+        .luxury-frame::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--color-gold);
+        }
+
+        .luxury-frame::before {
+            top: -5px;
+            left: -5px;
+            border-bottom: none;
+            border-right: none;
+        }
+
+        .luxury-frame::after {
+            bottom: -5px;
+            right: -5px;
+            border-top: none;
+            border-left: none;
+        }
+        /* --- AKHIR BINGKAI ESTETIK --- */
+
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            background: radial-gradient(circle at 50% 50%, #1a1500 0%, #0a0a0a 100%);
+            overflow: hidden;
+        }
+
+        .fluid-bg::before {
+            content: '';
+            position: absolute;
+            width: 200vw;
+            height: 200vh;
+            top: -50%;
+            left: -50%;
+            background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.05), transparent 60%);
+            animation: rotateGlow 20s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .photo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Membuat foto diam saat web digeser */
-            
-            color: var(--light);
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
+            opacity: 0.15;
+            filter: sepia(0.8) contrast(1.2) brightness(0.6);
+            mix-blend-mode: screen;
+            animation: cinematicZoom 30s ease-in-out infinite alternate;
         }
 
-        /* Bingkai Estetik */
-        .luxury-frame {
-            position: fixed; top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.5); 
-            pointer-events: none; z-index: 998;
+        @keyframes cinematicZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
         }
-        .luxury-frame::before, .luxury-frame::after {
-            content: ''; position: absolute; width: 30px; height: 30px; border: 1px solid var(--gold);
-        }
-        .luxury-frame::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
-        .luxury-frame::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
 
-        /* Halaman Slide (Dengan Filter Gelap) */
-        .slide {
-            width: 100vw; height: 100vh;
-            scroll-snap-align: start;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        h1, h2, h3 {
+            font-weight: 400;
+        }
+
+        .title-script {
+            font-family: var(--font-script);
+            font-size: 5.5rem;
+            background: linear-gradient(to right, var(--color-gold-light), var(--color-gold), var(--color-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            animation: shimmer 4s infinite linear;
+            background-size: 200% auto;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 0 15px;
+        }
+
+        .title-serif {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .subtitle-sans {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1rem;
+        }
+
+        #openingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--color-bg-dark);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .opening-content {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #openingScreen {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+        }
+        
+        #home {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+
+        .btn-open {
+            margin-top: 3rem;
+            padding: 1rem 3rem;
+            background: transparent;
+            color: var(--color-gold);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
             position: relative;
-            
-            /* Filter gelap agar tulisan tetap terbaca jelas di atas foto */
-            background-color: rgba(10, 10, 10, 0.7); 
-            padding: 20px; box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* Gaya Tulisan */
-        .font-script {
-            font-family: 'Great Vibes', cursive; color: var(--gold); font-size: 5rem; margin: 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        .font-serif { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
-        p { line-height: 1.6; font-size: 0.9rem; }
-
-        /* Kotak Nama Tamu */
-        .guest-box {
-            margin: 30px 0; padding: 15px 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        .btn-open::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: all 0.5s ease;
         }
 
-        /* Tombol */
-        .btn-luxury {
-            background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 12px 30px; font-family: 'Cinzel', serif; font-size: 1rem;
-            cursor: pointer; transition: all 0.3s ease; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px;
+        .btn-open:hover::before { left: 100%; }
+        
+        #mainContent {
+            display: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+            position: relative;
+            z-index: 10;
         }
-        .btn-luxury:hover { background: var(--gold); color: var(--dark); }
 
-        /* Tombol Musik */
-        #musicToggle {
-            position: fixed; bottom: 30px; right: 30px;
-            background: rgba(10, 10, 10, 0.8); border: 1px solid var(--gold); color: var(--gold);
-            width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; z-index: 999; font-size: 20px; transition: transform 0.3s;
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-        .spinning { animation: spin 3s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .no-scroll { overflow-y: hidden; }
+
+        .glass-box {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(212,175,55,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .couple-name {
+            font-family: var(--font-script);
+            font-size: 3.5rem;
+            color: var(--color-gold);
+            margin: 0.5rem 0;
+            line-height: 1.2;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .parents-name {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .and-divider {
+            font-family: var(--font-script);
+            font-size: 3rem;
+            color: rgba(212, 175, 55, 0.6);
+            margin: -0.5rem 0;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .cd-item {
+            display: flex;
+            flex-direction: column;
+            background: rgba(212, 175, 55, 0.05);
+            padding: 1rem 0.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .cd-number {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--color-gold);
+        }
+
+        .cd-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+        }
+
+        .btn-map {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--color-gold);
+            color: var(--color-bg-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-gold);
+            z-index: 999;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .spin { animation: spinRecord 4s linear infinite; }
+        @keyframes spinRecord { 100% { transform: rotate(360deg); } }
+
+        .firefly {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background-color: var(--color-gold-light);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--color-gold);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            animation: floatOrganic linear infinite;
+        }
+
+        @keyframes floatOrganic {
+            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(50vh) translateX(20px) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(-20px) scale(0); opacity: 0; }
+        }
     </style>
 </head>
-<body class="no-scroll">
-
-    <!-- Musik -->
-    <audio id="bgMusic" loop>
-        <source src="wedding.mp3" type="audio/mpeg">
-    </audio>
-    <div id="musicToggle">🔇</div>
+<body>
+    
+    <!-- Elemen Bingkai Estetik -->
     <div class="luxury-frame"></div>
 
-    <!-- SLIDE 1: HALAMAN DEPAN -->
-    <div class="slide" id="cover">
-        <p class="font-serif" style="font-size: 1rem; margin-bottom: 0;">The Wedding Of</p>
-        <h1 class="font-script">Didik & Istiana</h1>
-        
-        <!-- BAGIAN NAMA TAMU -->
-        <div class="guest-box">
-            <p style="margin: 0; font-size: 0.8rem; letter-spacing: 1px;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-            <h2 id="guestName" class="font-serif" style="font-size: 1.5rem; margin: 10px 0 0 0;">Tamu Kehormatan</h2>
-        </div>
+    <div class="fluid-bg"></div>
+    <div class="photo-bg"></div>
 
-        <button class="btn-luxury" id="btnOpen">Buka Undangan</button>
+    <div id="openingScreen">
+        <div class="opening-content">
+            <p class="subtitle-sans">Undangan Pernikahan</p>
+            <h1 class="title-script">Didik & Istiana</h1>
+            <p style="margin-top: 2rem; font-size: 0.9rem; color: rgba(255,255,255,0.6);">Kepada Yth.</p>
+            <h2 id="guestName" style="margin-top: 0.5rem; font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-gold);">Bapak/Ibu/Saudara/i</h2>
+            
+            <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
+        </div>
     </div>
 
-    <!-- SLIDE 2: DETAIL ACARA -->
-    <div class="slide">
-        <p class="font-serif" style="font-size: 1.2rem; margin-bottom: 20px;">Save The Date</p>
-        <h2 class="font-serif" style="font-size: 2rem; margin-bottom: 10px;">Minggu, 24 Mei 2026</h2>
-        <p class="font-serif" style="font-size: 1.5rem; color: #fff;">09.00 WITA</p>
-        
-        <div style="margin-top: 30px; border: 1px solid rgba(212,175,55,0.3); padding: 20px;">
-            <h3 class="font-serif" style="font-size: 1.2rem; margin-top: 0;">Lokasi Resepsi</h3>
-            <p>Kediaman Mempelai<br>
-            Jl. Contoh Alamat No. 123<br>
-            Makassar, Sulawesi Selatan</p>
-        </div>
-        <p style="margin-top: 40px; max-width: 600px; font-style: italic;">
-            "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu."
-        </p>
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section id="home">
+            <div style="text-align: center; position: relative;" class="reveal">
+                <p class="subtitle-sans">Kami Mengundang Anda</p>
+                <h1 class="title-script" style="font-size: 6.5rem; margin-top: 1rem;">Didik<br><span style="font-size: 4rem; color:rgba(212,175,55,0.6);">&</span><br>Istiana</h1>
+                <p style="margin-top: 1rem; font-family: var(--font-serif); font-size: 1.2rem; letter-spacing: 3px; color: rgba(255,255,255,0.8);">24 . 05 . 2026</p>
+            </div>
+        </section>
+
+        <!-- Couple Section -->
+        <section id="couple">
+            <div class="glass-box reveal">
+                <p class="subtitle-sans" style="margin-bottom: 2rem;">Sang Mempelai</p>
+                
+                <div>
+                    <h2 class="couple-name">Didik Setiawan</h2>
+                    <p class="parents-name">Putra dari<br>Bapak Muhammad Sai & Ibu Lasmiati</p>
+                </div>
+
+                <div class="and-divider">&</div>
+
+                <div>
+                    <h2 class="couple-name">Nur Istiana</h2>
+                    <p class="parents-name">Putri dari<br>Bapak Kusran (Almarhum) & Ibu Sapariah</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section id="event">
+            <div class="glass-box reveal">
+                <p class="subtitle-sans">Waktu Menuju Bahagia</p>
+                <h2 class="title-serif" style="margin: 1rem 0;">RESEPSI</h2>
+                
+                <div style="margin: 1.5rem 0; border-top: 1px solid rgba(212,175,55,0.2); border-bottom: 1px solid rgba(212,175,55,0.2); padding: 1.5rem 0;">
+                    <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">Minggu, 24 Mei 2026</p>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Pukul 09.00 WITA - Selesai</p>
+                </div>
+
+                <div class="countdown-grid">
+                    <div class="cd-item"><span class="cd-number" id="days">00</span><span class="cd-label">Hari</span></div>
+                    <div class="cd-item"><span class="cd-number" id="hours">00</span><span class="cd-label">Jam</span></div>
+                    <div class="cd-item"><span class="cd-number" id="minutes">00</span><span class="cd-label">Menit</span></div>
+                    <div class="cd-item"><span class="cd-number" id="seconds">00</span><span class="cd-label">Detik</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location">
+            <div class="glass-box reveal">
+                <p class="subtitle-sans">Lokasi Acara</p>
+                <i class="fas fa-map-marker-alt" style="font-size: 2.5rem; color: var(--color-gold); margin: 1.5rem 0;"></i>
+                <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem;">
+                    Jalan Rengas SP1<br>
+                    Desa Bumi Etam<br>
+                    Kecamatan Kaubun
+                </p>
+                <a href="https://maps.app.goo.gl/rRi4P3Q9A1FeidN38" target="_blank" class="btn-map">
+                    Buka Google Maps
+                </a>
+            </div>
+        </section>
+
+        <!-- Prayer Section -->
+        <section id="prayer">
+            <div class="glass-box reveal" style="max-width: 500px; padding: 4rem 2rem;">
+                <i class="fas fa-quote-right" style="font-size: 2rem; color: rgba(212,175,55,0.3); margin-bottom: 1.5rem;"></i>
+                <p style="font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.8); font-style: italic;">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."
+                </p>
+                <p style="margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.8rem; color: var(--color-gold); letter-spacing: 1px;">(QS. Ar-Rum: 21)</p>
+            </div>
+        </section>
+
+        <!-- Closing Section -->
+        <section id="closing">
+            <div style="text-align: center;" class="reveal">
+                <p class="subtitle-sans" style="margin-bottom: 2rem;">Terima Kasih</p>
+                <p style="font-family: var(--font-sans); font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 3rem; padding: 0 20px;">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+                </p>
+                <h1 class="title-script" style="font-size: 4.5rem;">Didik & Istiana</h1>
+            </div>
+        </section>
+
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="wedding.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
+        <i class="fas fa-volume-mute"></i>
     </div>
 
     <script>
-        const audio = document.getElementById("bgMusic");
-        const musicToggle = document.getElementById("musicToggle");
-        const btnOpen = document.getElementById("btnOpen");
-        let isPlaying = false;
-
-        // --- SISTEM PEMBACA NAMA TAMU DARI LINK ---
         const urlParams = new URLSearchParams(window.location.search);
-        const guest = urlParams.get('to');
-        if (guest) {
-            // Jika ada nama di link, ganti teks "Tamu Kehormatan" dengan nama tersebut
-            document.getElementById("guestName").innerText = guest;
+        const guestName = urlParams.get('to');
+        if(guestName) {
+            const guestElement = document.getElementById('guestName');
+            if(guestElement) {
+                guestElement.innerText = guestName.replace(/\+/g, ' ');
+            }
         }
 
-        // --- SISTEM KLIK BUKA UNDANGAN ---
-        btnOpen.addEventListener("click", () => {
-            document.body.classList.remove("no-scroll"); // Buka kunci scroll
-            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); // Geser ke bawah otomatis
-            
-            audio.play().then(() => {
-                isPlaying = true;
-                musicToggle.innerText = "💿";
-                musicToggle.classList.add("spinning");
-            }).catch(e => console.log("Audio diblokir browser."));
-        });
-
-        // --- SISTEM KLIK TOMBOL MUSIK ---
-        musicToggle.addEventListener("click", () => {
-            if (isPlaying) {
-                audio.pause();
-                musicToggle.innerText = "🔇";
-                musicToggle.classList.remove("spinning");
-                isPlaying = false;
-            } else {
-                audio.play();
-                musicToggle.innerText = "💿";
-                musicToggle.classList.add("spinning");
-                isPlaying = true;
+        function createFireflies() {
+            const count = 25;
+            for(let i=0; i<count; i++) {
+                let fly = document.createElement('div');
+                fly.className = 'firefly';
+                fly.style.left = Math.random() * 100 + 'vw';
+                fly.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                fly.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(fly);
             }
-        });
+        }
+
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.querySelector('#musicToggle i');
+
+        function toggleMusic() {
+            if (music.paused) {
+                let playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        musicIcon.className = 'fas fa-compact-disc spin';
+                    }).catch(error => {
+                        console.log("Audio play interrupted/blocked:", error);
+                        musicIcon.className = 'fas fa-volume-mute';
+                    });
+                }
+            } else {
+                music.pause();
+                musicIcon.className = 'fas fa-volume-mute';
+            }
+        }
+
+        function openInvitation() {
+            let playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.className = 'fas fa-compact-disc spin';
+                }).catch(error => {
+                    console.log("Auto-play pada awal dicegah:", error);
+                });
+            }
+
+            const cover = document.getElementById('openingScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            cover.style.opacity = '0';
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                void mainContent.offsetWidth; 
+                mainContent.style.opacity = '1';
+                
+                createFireflies();
+                initScrollObserver();
+            }, 1000); 
+        }
+
+        const weddingDate = new Date("May 24, 2026 09:00:00").getTime();
+        
+        const countdownTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
+
+        function initScrollObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        }
     </script>
 </body>
 </html>
