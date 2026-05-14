@@ -184,17 +184,15 @@
         }
 
         #openingScreen {
-            background-image: url('bg.jpg');
+            background-image: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), url('bg.jpg');
             background-size: cover;
             background-position: center;
-            background-blend-mode: multiply;
         }
         
         #home {
-            background-image: url('bg.jpg');
+            background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.8)), url('bg.jpg');
             background-size: cover;
             background-position: center;
-            background-blend-mode: overlay;
         }
 
         .btn-open {
@@ -493,7 +491,7 @@
     </div>
 
     <audio id="bgMusic" loop preload="auto">
-        <source src="wedding.mp3" type="audio/mpeg">
+        <source src="wedding.mp3?v=3" type="audio/mpeg">
     </audio>
     
     <div class="music-btn" id="musicToggle" onclick="toggleMusic()">
