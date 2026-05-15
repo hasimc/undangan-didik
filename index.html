@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Wedding of Didik & Istiana</title>
     
+    <!-- Meta Tags untuk Thumbnail WhatsApp / Sosial Media -->
+    <meta property="og:title" content="Undangan Pernikahan: Didik & Istiana">
+    <meta property="og:description" content="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.">
+    <meta property="og:image" content="https://hasimc.github.io/undangan-didik/thumb.jpeg">
+    <meta property="og:url" content="https://hasimc.github.io/undangan-didik/">
+    <meta property="og:type" content="website">
+
     <!-- Fonts Premium: Great Vibes (Kaligrafi) & Cinzel (Luxury Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,6 +108,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* --- FOTO BACKGROUND (bg.jpg) --- */
         .photo-bg {
             position: fixed;
             top: 0;
@@ -108,12 +116,12 @@
             width: 100vw;
             height: 100vh;
             z-index: -2;
-            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-image: url('bg.jpg'); /* Mengambil file bg.jpg Anda */
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
-            filter: sepia(0.8) contrast(1.2) brightness(0.6);
-            mix-blend-mode: screen;
+            opacity: 0.3; /* Menggelapkan foto agar tulisan jelas */
+            /* filter: sepia(0.8) contrast(1.2) brightness(0.6); <- Dimatikan agar warna asli foto tetap ada */
+            /* mix-blend-mode: screen; <- Dimatikan agar tidak tertutup warna hitam */
             animation: cinematicZoom 30s ease-in-out infinite alternate;
         }
 
@@ -165,7 +173,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--color-bg-dark);
+            /* background: var(--color-bg-dark); <- DIMATIKAN agar foto bg.jpg terlihat tembus pandang */
+            background: rgba(10, 10, 10, 0.5); /* Menambahkan efek gelap transparan di atas bg.jpg */
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -181,18 +190,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        #openingScreen {
-            background-image: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), url('bg.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        #home {
-            background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.8)), url('bg.jpg');
-            background-size: cover;
-            background-position: center;
         }
 
         .btn-open {
@@ -395,7 +392,7 @@
             <p class="subtitle-sans">Undangan Pernikahan</p>
             <h1 class="title-script">Didik & Istiana</h1>
             <p style="margin-top: 2rem; font-size: 0.9rem; color: rgba(255,255,255,0.6);">Kepada Yth.</p>
-            <h2 id="guestName" style="margin-top: 0.5rem; font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-gold);">Bapak/Ibu/Saudara/i</h2>
+            <h2 id="guestName" style="margin-top: 0.5rem; font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-gold);">Tamu Kehormatan</h2>
             
             <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
         </div>
@@ -490,6 +487,7 @@
 
     </div>
 
+    <!-- AUDIO DENGAN TRIK ANTI CACHE ?v=3 -->
     <audio id="bgMusic" loop preload="auto">
         <source src="wedding.mp3?v=3" type="audio/mpeg">
     </audio>
@@ -499,11 +497,13 @@
     </div>
 
     <script>
+        // --- SISTEM PEMBACA NAMA TAMU DARI LINK ---
         const urlParams = new URLSearchParams(window.location.search);
         const guestName = urlParams.get('to');
         if(guestName) {
             const guestElement = document.getElementById('guestName');
             if(guestElement) {
+                // Mengganti tanda + menjadi spasi
                 guestElement.innerText = guestName.replace(/\+/g, ' ');
             }
         }
